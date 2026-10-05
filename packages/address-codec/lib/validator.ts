@@ -28,7 +28,12 @@ import {
   validateHandshakeAddress,
 } from '@rosen-bridge/address-codec-handshake';
 
-import { BINANCE_CHAIN, BASE_CHAIN, ETHEREUM_CHAIN } from './const';
+import {
+  AVALANCHE_CHAIN,
+  BINANCE_CHAIN,
+  BASE_CHAIN,
+  ETHEREUM_CHAIN,
+} from './const';
 import { UnsupportedChainError } from './types';
 
 export const chainValidators: Record<string, (address: string) => void> = {
@@ -38,6 +43,7 @@ export const chainValidators: Record<string, (address: string) => void> = {
   [ETHEREUM_CHAIN]: generateEvmAddressValidator(ETHEREUM_CHAIN),
   [BINANCE_CHAIN]: generateEvmAddressValidator(BINANCE_CHAIN),
   [BASE_CHAIN]: generateEvmAddressValidator(BASE_CHAIN),
+  [AVALANCHE_CHAIN]: generateEvmAddressValidator(AVALANCHE_CHAIN),
   [DOGE_CHAIN]: validateDogeAddress,
   [BITCOIN_RUNES_CHAIN]: validateBitcoinRunesAddress,
   [FIRO_CHAIN]: validateFiroAddress,

@@ -5,6 +5,8 @@ export const BITCOIN_CHAIN = 'bitcoin';
 export const ETHEREUM_CHAIN = 'ethereum';
 export const BINANCE_CHAIN = 'binance';
 export const BASE_CHAIN = 'base';
+export const AVALANCHE_CHAIN = 'avalanche';
+export const AVALANCHE_NATIVE_TOKEN = 'avax';
 export const CARDANO_CHAIN = 'cardano';
 export const ERGO_CHAIN = 'ergo';
 export const DOGE_CHAIN = 'doge';
@@ -25,4 +27,7 @@ export const SUPPORTED_CHAINS = [
   { chain: FIRO_CHAIN, index: 7 },
   { chain: HANDSHAKE_CHAIN, index: 8 },
   { chain: BASE_CHAIN, index: 9 },
+  // Rosen has not assigned an EVM destination byte for the native-only route.
+  // AVAX returns from Ergo using the chain name in R4.
+  { chain: AVALANCHE_CHAIN, index: undefined },
 ];

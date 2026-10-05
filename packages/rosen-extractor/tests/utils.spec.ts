@@ -36,4 +36,15 @@ describe('parseRosenData', () => {
       parseRosenData(script);
     }).toThrow(Error);
   });
+
+  /**
+   * @target parseRosenData refuses an unassigned Avalanche destination byte
+   * @dependencies Actual parser and registered address codecs; no external calls
+   * @scenario Replace only the valid fixture's chain byte with unassigned 10.
+   * @expected Reject before address decoding; neither Base nor Avalanche aliases 10.
+   */
+  it('refuses an unassigned Avalanche destination byte', () => {
+    const script = '0a' + testData.opReturnScripts.valid.slice(2);
+    expect(() => parseRosenData(script)).toThrow(/invalid toChain code/);
+  });
 });
