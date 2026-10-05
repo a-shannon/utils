@@ -7,16 +7,16 @@ import { CustomQueryRunner } from './customQueryRunner';
 class CustomSqliteDriver extends SqliteDriver {
   protected mutex: Mutex;
 
+  /** Creates one ownership mutex for this SQLite connection. */
   constructor(connection: DataSource) {
     super(connection);
     this.mutex = new Mutex();
   }
 
+  /** Creates an independent runner sharing the connection's ownership mutex. */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   createQueryRunner = (mode: ReplicationMode): QueryRunner => {
-    if (!this.queryRunner)
-      this.queryRunner = new CustomQueryRunner(this, this.mutex);
-    return this.queryRunner;
+    return new CustomQueryRunner(this, this.mutex);
   };
 }
 
