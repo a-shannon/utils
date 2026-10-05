@@ -370,6 +370,40 @@ describe('TokenMap', () => {
   });
 
   describe('wrapAmount', () => {
+    it('keeps native SOL amounts exact above Number.MAX_SAFE_INTEGER', async () => {
+      const tokenMap = new TokenMap();
+      await tokenMap.updateConfigByJson([
+        {
+          ergo: {
+            tokenId: 'ergo-wrapped-sol',
+            name: 'Wrapped SOL test token',
+            decimals: 9,
+            type: 'native',
+            residency: 'wrapped',
+            extra: {},
+          },
+          solana: {
+            tokenId: 'native',
+            name: 'SOL',
+            decimals: 9,
+            type: 'native',
+            residency: 'native',
+            extra: {},
+          },
+        },
+      ]);
+
+      const amount = 9_007_199_254_740_993n;
+      const wrapped = tokenMap.wrapAmount('ergo-wrapped-sol', amount, 'solana');
+      expect(wrapped).toEqual({ amount, decimals: 9 });
+      expect(
+        tokenMap.unwrapAmount('ergo-wrapped-sol', wrapped.amount, 'solana'),
+      ).toEqual({
+        amount,
+        decimals: 9,
+      });
+    });
+
     /**
      * @target TokenMap.wrapAmount should drop decimals successfully
      * @dependencies

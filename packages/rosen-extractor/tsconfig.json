@@ -9,6 +9,7 @@
     { "path": "../loggers/abstract-logger" },
     { "path": "../tokens" },
     { "path": "../json-bigint" },
-    { "path": "../address-manager" }
+    { "path": "../address-manager" },
+    { "path": "../address-codec-chains/solana" }
   ]
 }

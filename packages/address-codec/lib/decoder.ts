@@ -27,6 +27,10 @@ import {
   HANDSHAKE_CHAIN,
   decodeHandshakeAddress,
 } from '@rosen-bridge/address-codec-handshake';
+import {
+  decodeSolanaAddress,
+  SOLANA_CHAIN,
+} from '@rosen-bridge/address-codec-solana';
 
 import { BINANCE_CHAIN, BASE_CHAIN, ETHEREUM_CHAIN } from './const';
 import { UnsupportedChainError } from './types';
@@ -42,6 +46,7 @@ export const chainDecoders: Record<string, (address: string) => string> = {
   [BITCOIN_RUNES_CHAIN]: decodeBitcoinRunesAddress,
   [FIRO_CHAIN]: decodeFiroAddress,
   [HANDSHAKE_CHAIN]: decodeHandshakeAddress,
+  [SOLANA_CHAIN]: decodeSolanaAddress,
 };
 
 /**

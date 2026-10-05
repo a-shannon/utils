@@ -95,3 +95,51 @@ const rosenExtractor = new ErgoNodeRosenExtractor(ergoLockAddress, tokenMap);
 const res = rosenExtractor.get(tx);
 console.log(res);
 ```
+
+### Solana deposit profile
+
+`SolanaRosenExtractor.get(serializedTransaction)` supports native SOL and
+explicitly configured mints of the original SPL Token Program, with Ergo as the
+destination. Initialize `AddressManager` as above and supply a
+`SolanaRosenExtractorConfig` and `TokenMap`. The extractor validates the Ergo
+address with `ergo-lib-wasm-nodejs` for the configured mainnet or testnet and
+checks the canonical Base58 round trip. Its inherited `get()` method therefore
+uses the same destination-network rule as contextual extraction. The read-only+`getResolvedProfile()` descriptor exposes the policy actually applied by the+projector for a scanner to bind into its persistent profile.
+
+The input is a JSON transaction projection enriched by a source connector:
+
+- `transaction` contains signatures and the compiled message; `version` is
+  `"legacy"` or `0`. v0 requires resolved loaded addresses and lookup metadata.
+- `meta` contains execution status, internal-instruction traces, balances and
+  token-balance metadata. At the top level, the connector adds `clusterGenesisHash`, `slot`,
+  `blockhash`, `commitment: "finalized"` and `destinationNetwork`.
+- SPL additionally requires transaction-specific `history` snapshots of the
+  mint, source token account and configured vault token account, before and
+  after execution, bound to the same slot, first signature and cluster.
+
+Preserve exact monetary values as canonical decimal strings or unsigned JSON
+integer tokens. Do not parse RPC balances through JavaScript `Number` and then
+serialize them: precision already lost upstream cannot be recovered. Decimal
+or exponent notation is rejected in consumed integer fields; fractional
+`uiAmount` display fields are ignored. Duplicate JSON keys are rejected. Numeric
+token recovery uses the native JSON reviver source context available in the
+required Node runtime.
+
+Each eligible transaction contains one external System Transfer or SPL
+TransferChecked, followed by one canonical Memo signed by the payment authority.
+The profile rejects CPI, multiple payments, extra instructions, Token-2022 and
+wSOL. Configured `minAmount`, `maxAmount`, `networkFee` and `bridgeFee` use source
+units. Configured fees must equal the Memo fees. Amount and fees
+must convert exactly to the shared TokenMap scale, with no rounding or dust.
+
+This extractor checks the consistency of the supplied projection. It does not
+verify transaction signatures cryptographically, establish finality, resolve
+historical lookup tables, or authenticate historical account snapshots. The
+connector and independent source verifier must establish those properties.
+Current account reads cannot replace transaction-specific history. The returned
+`RosenData` keeps the first signature as `sourceTxId`, but does not carry the
+cluster, block, slot or historical evidence: retain that context separately for
+observation persistence and source verification. `rawData` contains only the
+base58 Memo instruction data unless raw-data storage is disabled. Use `get()`
+for the normalized amount; the lower-level `extractData()` retains source units
+in `amount` while already returning normalized fees.

@@ -28,4 +28,17 @@ export { BitcoinRunesRosenExtractor } from './getRosenData/bitcoin-runes/bitcoin
 export { BitcoinRunesRpcRosenExtractor } from './getRosenData/bitcoin-runes/bitcoinRunesRpcRosenExtractor';
 export { HandshakeRosenExtractor } from './getRosenData/handshake/handshakeRosenExtractor';
 export { HandshakeRpcRosenExtractor } from './getRosenData/handshake/handshakeRpcRosenExtractor';
+export {
+  SolanaRosenExtractor,
+  SolanaRosenAssetPolicy,
+  SolanaRosenExtractorConfig,
+  SolanaDepositContext,
+  SolanaBlockProjectionContext,
+  SolanaRosenExtractionOutcome,
+  SolanaRosenBlockExtractionOutcome,
+  SolanaResolvedAssetProfile,
+  SolanaResolvedProfile,
+} from './getRosenData/solana/solanaRosenExtractor';
+export { SOLANA_PROJECTOR_VERSION } from './getRosenData/solana/solanaRosenExtractor';
+export { SOLANA_NATIVE_TOKEN } from './getRosenData/solana/constants';
 export { parseRosenData } from './utils';

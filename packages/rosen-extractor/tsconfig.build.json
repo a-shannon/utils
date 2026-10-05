@@ -8,6 +8,7 @@
     { "path": "../loggers/abstract-logger/tsconfig.build.json" },
     { "path": "../tokens/tsconfig.build.json" },
     { "path": "../json-bigint/tsconfig.build.json" },
-    { "path": "../address-manager/tsconfig.build.json" }
+    { "path": "../address-manager/tsconfig.build.json" },
+    { "path": "../address-codec-chains/solana/tsconfig.build.json" }
   ]
 }

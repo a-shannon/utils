@@ -13,6 +13,7 @@
     { "path": "../address-codec-chains/ergo/tsconfig.build.json" },
     { "path": "../address-codec-chains/evm/tsconfig.build.json" },
     { "path": "../address-codec-chains/firo/tsconfig.build.json" },
-    { "path": "../address-codec-chains/handshake/tsconfig.build.json" }
+    { "path": "../address-codec-chains/handshake/tsconfig.build.json" },
+    { "path": "../address-codec-chains/solana/tsconfig.build.json" }
   ]
 }

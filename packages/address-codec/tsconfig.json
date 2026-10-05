@@ -13,6 +13,7 @@
     { "path": "../address-codec-chains/ergo" },
     { "path": "../address-codec-chains/evm" },
     { "path": "../address-codec-chains/firo" },
-    { "path": "../address-codec-chains/handshake" }
+    { "path": "../address-codec-chains/handshake" },
+    { "path": "../address-codec-chains/solana" }
   ]
 }
